@@ -14,7 +14,26 @@ To analyze business licensing data for the City of Vancouver (1997–2012) using
 
 ---
 
-## Dataset Information
+## Dataset Information: Business Licences 1997–2012
+
+The dataset includes business licence records from **1997 to 2012**, collected by the **City of Vancouver** under Licence By-Law No. 4450. It captures details about licensing, business types, and locations within the city. The dataset is available in both **CSV** and **JSON** formats and includes the following key features:
+
+- **LicenceRSN:** A unique identifier for each business licence issued  
+- **LicenceNumber:** Encoded with year and system-generated number (e.g., `97-144521`)  
+- **BusinessName:** Official name or ownership of the business  
+- **BusinessTradeName:** Name under which the business typically operates  
+- **Status:** Indicates licence state (e.g., *Issued*, *Cancelled*, *Gone Out of Business*)  
+- **IssuedDate / ExpiredDate:** Start and end dates of the licence validity  
+- **BusinessType:** Type of business activity (e.g., *Health Services*, *Retail Dealer*)  
+- **BusinessSubType:** Further classification under the main type (e.g., *Tanning Salon*)  
+- **Street Address Fields:** Includes `Unit`, `House`, `Street`, `City`, `Province`, `Country`, and `PostalCode`  
+- **LocalArea:** Planning zone within Vancouver (e.g., *Fairview*, *Downtown*)  
+- **NumberofEmployees:** Reported number of employees
+- **FeePaid:** Licensing fee paid in Canadian dollars  
+- **ExtractDate:** When the data was exported from the City's database  
+
+This dataset is used throughout the project for ingestion, profiling, cleaning, and summarization tasks in AWS.
+
 
 - **Source:** [City of Vancouver Open Data Portal](https://opendata.vancouver.ca/)
 - **Dataset Name:** `business-licences-1997-to-2012`
