@@ -43,108 +43,129 @@ This dataset is used throughout the project for ingestion, profiling, cleaning, 
 
 ---
 
-## Methodology: AWS-Based Descriptive Analytics Workflow
+## Methodology: AWS-Based Descriptive Analytics Workflow (6 Phases)
 
-This methodology adapts the professor’s recommended process to a cloud-native AWS workflow.
+The following methodology adapts our professor’s recommended business analytics pipeline into a fully cloud-native AWS architecture. Each phase contributed toward producing a clean, optimized, and analysis-ready dataset, while incorporating governance, monitoring, and validation features.
 
-### 1. Data Collection and Preparation
-- Uploaded dataset to **Amazon S3** using **EC2**
-- Set up encryption (KMS), versioning, and replication
+### Phase 1: Data Ingestion  
+- Used Amazon EC2 to upload CSV and JSON data files to S3 (`licence-raw-ash`)
+- Enabled encryption using AWS KMS, set versioning, and configured cross-region replication for resilience
 
-### 2. Data Profiling
-- Used **AWS Glue DataBrew** to analyze:
-  - Missing values
-  - Column distributions
-  - Summary statistics
+### Phase 2: Data Profiling  
+- Profiled raw data using AWS Glue DataBrew
+- Evaluated column stats, missing values, outliers, and nested JSON attributes to understand initial data quality
 
-### 3. Data Cleaning
-- Applied cleaning recipes in DataBrew:
-  - Removed unnecessary columns
-  - Filled missing values
-  - Converted to Parquet format for optimization
+### Phase 3: Data Cleaning  
+- Designed and applied transformation recipes in Glue DataBrew
+- Cleaned and reformatted records, filtered key columns, and converted to CSV/Parquet for structured output
+- Outputs were stored in separate folders (`user/` and `system/`) under the transfer bucket (`licence-trf-ash`)
 
-### 4. Data Cataloging
-- Created **AWS Glue Crawlers** to register structured schema in **AWS Glue Data Catalog**
+### Phase 4: Data Cataloging & Summarization  
+- Created Glue Crawlers to register cleaned data as schema-aware tables in Glue Data Catalog
+- Built a Glue ETL pipeline to apply schema transformations and aggregate metrics by month
+- Registered the summarized output to the curated bucket (`licence-cur-ash`) and made it queryable via Amazon Athena
 
-### 5. Data Summarization
-- Built an ETL pipeline in **Glue Studio**
-- Used **Amazon Athena** to query and summarize trends
-- Output stored in a final “transfer” S3 bucket
+### Phase 5: Data Analysis  
+- Queried summarized Parquet tables using Amazon Athena to extract trends
+- Validated license issuance trends and total fees across time (1997–2012)
+- Compared AWS query output with the official City of Vancouver data portal for accuracy
 
-### Insights and Learnings
-
-The descriptive analysis conducted on the business licensing dataset from the City of Vancouver (1997–2012) provided critical insights into patterns in license issuance and associated fees.
-
-From the trend chart, we observed consistent activity from 2002 to 2009, with peak total fees collected in **2007 (≈ $24,146)** and **2004–2008** showing sustained high revenue from licensing. The number of licenses issued also followed this trend, with counts generally ranging from **30–40 licenses per year** during that period. A notable decline in both the number of licenses and fees occurred after 2009, with the lowest activity in 2012.
-
-The top five business types in this dataset were:
-- **Live-aboards** (128 instances)
-- **One-Family Dwelling** (58)
-- **Office** (39)
-- **Duplex** (34)
-- **Multiple Dwelling** (28)
-
-This suggests a strong presence of home-based or residential business licensing during this period, particularly before changes made in 2018 that limited the disclosure of address data for home-based businesses.
-
-Fee distribution also indicated a significant range, with some years collecting upwards of **$23,000+ CAD**, while others (especially post-2010) showed a sharp decline. Profiling also revealed that a majority of businesses either reported **zero employees or left the field as '000'**, reflecting potential data entry inconsistency or a high volume of sole proprietorships.
-
-This analysis not only helped identify key licensing trends and revenue patterns but also demonstrated the value of structuring raw open data into optimized formats for deeper insight generation.
+### Phase 6: Data Governance & Monitoring  
+- Built a data quality pipeline in AWS Glue to route records into `Passed` and `Failed` folders based on validation logic
+- Monitored system usage via Amazon CloudWatch with custom dashboards
+- Set up AWS CloudTrail for full auditing and traceability of ETL activity
 
 ---
 
-### Recommendations
-
-Based on the descriptive analysis, the following recommendations can be proposed:
-
-1. **Improve Employee Data Consistency**  
-   The `NumberofEmployees` field is often reported as `0` or `000`, which likely masks the true business scale. Introducing dropdown-based data entry or enforced validations (e.g., numeric range only) during licensing applications could improve data reliability.
-
-2. **Focus Monitoring on Peak Activity Windows**  
-   The years between **2002–2009** demonstrated the highest business activity and revenue generation. City administrators should analyze policy or economic factors from that period to understand what facilitated higher engagement.
-
-3. **Enhance Business Type Classification**  
-   Categories such as *Live-aboards* or *One-Family Dwelling* appeared frequently and may require modern restructuring or merging under updated classification codes. Streamlining these can support better longitudinal comparisons.
-
-4. **Automate Data Governance Pipelines**  
-   While this project used AWS Glue and Athena for post-hoc processing, a future pipeline that regularly syncs, validates, and profiles licensing data in near real-time could enhance transparency and operational efficiency for city departments.
-
----
-
-##  AWS Services Used
-
-| Service           | Purpose                                                                 |
-|------------------|-------------------------------------------------------------------------|
-| **Amazon EC2**    | Upload and prepare dataset for S3                                       |
-| **Amazon S3**     | Store raw, cleaned, and transformed datasets                            |
-| **AWS Glue DataBrew** | Profiling, cleaning, and transformation                              |
-| **AWS Glue Crawler** | Create and manage AWS Glue Data Catalog                              |
-| **AWS Glue Studio**  | Visual ETL pipelines for summarization                               |
-| **Amazon Athena**    | SQL-based analysis and summarization                                 |
-| **AWS CloudWatch**   | Monitoring logs and job performance                                  |
-| **AWS CloudTrail**   | Track access and configuration history                               |
-| **AWS KMS**          | Encryption using customer-managed keys                               |
-
----
-
-## Project Architecture
+## Project Architecture Diagram
 
 ![Data Analytics Platform Diagram](architecture/dap-workflow.png)
 
 This architecture showcases how the dataset moves from ingestion to summarization across AWS services, with encryption, versioning, and monitoring enabled for governance.
 
 ---
-
 ## Project Workflow
 
-The project is organized into **six key phases**, each stored in its own folder with screenshots and explanations.
+The project is organized into **six key phases**, each stored in its own folder with screenshots and detailed explanations.
 
 | Phase | Folder | Description |
 |-------|--------|-------------|
 | **Phase 1** | [`phase-1-ingestion/`](./phase-1-ingestion) | Uploading dataset to S3, enabling encryption, versioning, and replication |
 | **Phase 2** | [`phase-2-profiling/`](./phase-2-profiling) | Profiling the raw data using AWS Glue DataBrew |
 | **Phase 3** | [`phase-3-cleaning/`](./phase-3-cleaning) | Cleaning and transforming using DataBrew recipes |
-| **Phase 4** | [`phase-4-cataloging/`](./phase-4-cataloging) | Cataloging structured data using Glue Crawlers |
-| **Phase 5** | [`phase-5-summarization/`](./phase-5-summarization) | Summarizing and querying using Glue Studio and Athena |
+| **Phase 4** | [`phase-4-cataloging-summarization/`](./phase-4-cataloging-summarization) | Cataloging metadata and summarizing datasets using Glue Crawlers, Glue Studio, and Athena |
+| **Phase 5** | [`phase-5-data-analysis/`](./phase-5-data-analysis) | Performing SQL-based data analysis and external validation using Vancouver’s open data portal |
+| **Phase 6** | [`phase-6-data-governance-&-Monitoring/`](./phase-6-data-governance-&-Monitoring) | Implementing data governance, quality checks, and system monitoring with Glue, CloudWatch, and CloudTrail |
+
+---
+
+### Insights and Learnings
+
+The descriptive analysis conducted on the business licensing dataset from the City of Vancouver (1997–2012) provided critical insights into license issuance patterns, revenue collection, data quality, and infrastructure monitoring.
+
+Using AWS Glue DataBrew and Amazon Athena, we discovered that license issuance and fee collections peaked between **2004–2008**, with the highest revenue recorded in **2007 (~$24,146 CAD)**. A gradual decline followed post-2009, with **2012 marking the lowest activity**, suggesting economic or regulatory shifts during that time. Analysis also revealed that **most years issued between 30–40 licenses**, indicating relatively steady activity.
+
+The most frequent business types included:
+- **Live-aboards** (128 records)
+- **One-Family Dwelling** (58)
+- **Office** (39)
+- **Duplex** (34)
+- **Multiple Dwelling** (28)
+
+These findings point to a strong representation of **home-based or residential licenses** prior to the 2018 privacy-related data suppression.
+
+Profiling further revealed discrepancies like `NumberofEmployees` often being `0` or `000`, showing poor input validation. Additionally, multiple nested and incomplete fields in the raw JSON format were successfully flattened and transformed using DataBrew into **Parquet format**, optimizing performance for SQL-based analytics.
+
+On the data quality front, AWS Glue’s **Data Quality Transformations** were employed to separate and route datasets based on pass/fail thresholds—enabling proactive governance and ensuring that only high-quality data flows into downstream analytics.
+
+Real-time monitoring was enabled through:
+- **AWS CloudWatch Dashboards** – tracking bucket sizes and resource usage.
+- **AWS CloudTrail** – logging all activity across the AWS environment for audit and compliance.
+
+By aligning our data schema and reporting logic with Vancouver’s official open data portal, we also validated that our insights mirrored authentic municipal reporting patterns. This closed-loop verification added credibility to our pipeline's analytical output.
+
+---
+
+### Recommendations
+
+Based on this comprehensive cloud-native analytics pipeline, the following recommendations are proposed:
+
+1. **Enforce Structured Input Validation**  
+   Fields like `NumberofEmployees` and `BusinessType` should implement dropdowns or regex validations at the data collection source to eliminate zeros, blanks, and invalid entries.
+
+2. **Implement Real-Time Governance Triggers**  
+   Automate data quality workflows using **AWS Glue Job Bookmarks** or **Step Functions** to routinely filter, route, and monitor records in real-time rather than via batch jobs.
+
+3. **Enhance Business Classification Taxonomy**  
+   Some business categories appear outdated or inconsistent (e.g., *Live-aboards*, *One-Family Dwelling*). Introduce a modern classification system using NAICS or a custom city taxonomy for better segmentation.
+
+4. **Expand Monitoring Coverage**  
+   Enhance the existing CloudWatch dashboard to include **Athena query performance metrics**, **ETL run health**, and **storage cost alerts**, helping reduce delays and costs.
+
+5. **Establish Version-Controlled Data Lake**  
+   Leverage **Lake Formation** and **versioned S3 buckets** for maintaining historical snapshots of datasets—ensuring rollback and reproducibility of analytical experiments.
+
+6. **Maintain Alignment with Public Open Data Standards**  
+   Ensure any future transformations or aggregations remain consistent with city-published open datasets to enhance transparency, public trust, and external validation opportunities.
+
+---
+
+## AWS Services Used
+
+| Service                  | Purpose                                                                                      |
+|--------------------------|----------------------------------------------------------------------------------------------|
+| **Amazon EC2**           | Upload and prepare dataset files for ingestion into S3                                       |
+| **Amazon S3**            | Store raw, cleaned, transformed, and validated datasets across buckets and folders           |
+| **AWS KMS**              | Enable encryption for secure storage and data privacy                                        |
+| **AWS Glue DataBrew**    | Perform profiling, cleaning, flattening of nested fields, and transformation into Parquet    |
+| **AWS Glue Crawler**     | Auto-detect schema and register datasets into AWS Glue Data Catalog                          |
+| **AWS Glue Studio**      | Build and visualize ETL pipelines for schema standardization and transformation              |
+| **AWS Glue ETL Workflows** | Conduct data quality checks, conditional routing to `Passed` or `Failed` folders            |
+| **Amazon Athena**        | Perform SQL-based analysis and aggregation on structured data                                |
+| **AWS CloudWatch**       | Monitor system metrics including bucket usage and job performance via custom dashboards      |
+| **AWS CloudTrail**       | Enable full activity logging for auditing, compliance, and transparency                      |
+| **Vancouver Open Data Portal** | Used as a benchmark for external validation of insights and reporting patterns         |
+
 
 ---
 
@@ -160,7 +181,7 @@ The chart below shows licensing fee trends over time based on the dataset used i
 
 I have earned the **AWS Cloud Practitioner (Foundations)** certification, which demonstrates my understanding of AWS Cloud concepts, services, and basic architectural best practices.
 
-📌 Certification: [View Certification PDF](certification/AWS-Cloud-Foundations-certificate-Ashwani.pdf)
+Certification: [View Certification PDF](certification/AWS-Cloud-Foundations-certificate-Ashwani.pdf)
 
 ![AWS Cloud Foundations Badge](certification/aws-cloud-foundations-badge-ashwani.png)
 
@@ -169,9 +190,8 @@ I have earned the **AWS Cloud Practitioner (Foundations)** certification, which 
 
 ## GitHub Pages Portfolio
 
-🔗 View my public portfolio site: [https://buildwithashwani.github.io/AWS-Portfolio](https://buildwithashwani.github.io/AWS-Portfolio)
+Visit live project: [GitHub Pages](https://buildwithashwani.github.io/AWS-Portfolio)
 
-This portfolio showcases all five phases visually and interactively using HTML and GitHub Pages.
 
 ---
 
@@ -186,7 +206,7 @@ This portfolio showcases all five phases visually and interactively using HTML a
 
 ## About Me
 
-👋 I'm **Ashwani**, an MBA student with a background in architecture and a growing passion for cloud computing and analytics.  
+I'm **Ashwani**, an MBA student with a background in architecture and a growing passion for cloud computing and analytics.  
 This project marks the start of my journey in building real-world AWS solutions.
 
 ---
