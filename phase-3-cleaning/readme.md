@@ -17,7 +17,7 @@ In this phase, we focused on preparing the raw business licensing data for analy
 
 ## Workflow Overview
 
-### 🧪 Data Cleaning with AWS Glue DataBrew
+### Data Cleaning with AWS Glue DataBrew
 
 A cleaning job named `busi-lice-97-12-cln-ash` was created using a custom recipe. This recipe focused on transforming and refining the dataset by:
 
@@ -32,7 +32,7 @@ A cleaning job named `busi-lice-97-12-cln-ash` was created using a custom recipe
 
 ---
 
-### 🗂️ Cleaned Data Storage in S3 (Transfer Bucket)
+### 🗂Cleaned Data Storage in S3 (Transfer Bucket)
 
 The cleaned data was saved in the **transfer bucket** (`licence-trf-ash`) in two logical folders:
 - `/user/` for CSV
@@ -46,7 +46,7 @@ The cleaned data was saved in the **transfer bucket** (`licence-trf-ash`) in two
 
 ---
 
-### 🖥️ Hosting Cleaned Data on EC2 via IIS
+### 🖥Hosting Cleaned Data on EC2 via IIS
 
 We used a Windows-based EC2 instance to simulate public hosting of the cleaned dataset using Internet Information Services (IIS). The cleaned files were uploaded to the `wwwroot` directory.
 
@@ -58,7 +58,7 @@ We used a Windows-based EC2 instance to simulate public hosting of the cleaned d
 
 ---
 
-### 📥 Log Upload to S3 via PowerShell
+### Log Upload to S3 via PowerShell
 
 To simulate audit capabilities, a user log file was manually created on the EC2 instance and uploaded to the **raw bucket** (`licence-raw-ash`) using PowerShell.
 
@@ -68,7 +68,7 @@ To simulate audit capabilities, a user log file was manually created on the EC2 
 
 ---
 
-### ⚙️ EC2 Instance Metadata
+### ⚙EC2 Instance Metadata
 
 Below is the screenshot showing EC2 instance details used in this process.
 
