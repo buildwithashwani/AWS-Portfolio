@@ -1,44 +1,55 @@
 ## Phase 5: Data Analysis
 
-In this phase, we performed exploratory and structured data analysis using AWS DataBrew and Amazon Athena. The goal was to uncover trends in business licensing activity across Vancouver by aggregating the number of licenses issued and the corresponding fee payments over time.
+In this phase, we conducted detailed data analysis using AWS DataBrew and Amazon Athena to uncover meaningful trends and insights in Vancouver’s business licensing data. The analysis focused on identifying temporal licensing patterns, particularly the number of licenses issued and the associated fee payments over time.
 
-### Overview
+---
 
-After successfully cleaning and transforming the business licensing dataset in earlier phases, we moved forward with structured analysis. The cleaned data was saved in both `.csv` and `.parquet` formats within separate folders (`user/` and `system/`) in the transfer bucket `licence-trf-ash`. The `.parquet` format was selected for its columnar storage advantages, enabling efficient querying in Amazon Athena.
+### Data Preparation for Analysis
+
+Following earlier phases of ingestion, profiling, cleaning, and cataloging, we prepared the cleaned dataset in both `.csv` and `.parquet` formats. These were stored in the `licence-trf-ash` S3 transfer bucket, organized into `user/` and `system/` directories. CSV format was chosen for user-level accessibility, while Parquet was used for efficient, column-based querying in Athena.
 
 ---
 
 ### SQL Query in Amazon Athena
 
-To identify licensing trends, a SQL query was executed in Amazon Athena on the curated table `busi_lice_trf_system`. This query grouped licenses by their issuance month (`MonthIssued`), calculated how many were issued (`CountIssuedDate`), and summed up the fees paid (`SumFeePaid`).
+Amazon Athena was used to execute an SQL query on the curated table `busi_lice_trf_system`. This query grouped records by issuance month (`MonthIssued`), calculated the number of issued licenses (`CountIssuedDate`), and summed the fees paid (`SumFeePaid`), enabling a structured trend analysis.
 
-![SQL Query in Athena](images/dataanalysis-athena-sql-query.png)
-
-*Figure: The SQL query groups the data by month, aggregates the number of licenses issued, and sums up the fees paid.*
+![SQL Query in Athena](images/dataanalysis-athena-sql-query.png)  
+*Figure: SQL query in Athena used to aggregate license data by month.*
 
 ---
 
 ### Query Results
 
-The query successfully returned monthly aggregated data with licensing activity. This data structure closely mirrored the structure published on the Vancouver City Data Portal, further validating the approach.
+The results from the query were displayed in tabular form, showing consistent monthly licensing trends across multiple years. This output clearly showed peaks and troughs in both the number of licenses issued and fees paid, offering valuable insight into seasonal or economic patterns.
 
-![Query Results](images/dataanalysis-athena-query-results.png)
-
-*Figure: Query results showing monthly licensing trends.*
+![Query Results](images/dataanalysis-athena-query-results.png)  
+*Figure: Aggregated results by month displaying issued license counts and fees paid.*
 
 ---
 
-### Validation Against Vancouver Open Data
+### External Validation Using Vancouver City Data Portal
 
-The structure and values observed in the Athena results were compared with the Vancouver City Data Portal’s aggregated business license view. The comparison confirmed the validity of the SQL-based aggregation, affirming the analytical accuracy and data reliability.
+To ensure analytical robustness and accuracy, we compared our aggregated AWS-based results with the Vancouver City Data Portal. The external portal's monthly trends matched the patterns uncovered in our analysis, validating the SQL logic and overall data pipeline design.
 
-This analytical approach ensures transparency, replicability, and strong alignment with published governmental data standards. It also provided confidence in the transformed data pipeline established across previous phases — from ingestion to cleaning, summarization, and cataloging.
+![City Portal Trends](images/dataanalysis-cityportal-monthly-trends.png)  
+*Figure: Monthly licensing trends from the Vancouver City Data Portal confirming analysis accuracy.*
+
+---
+
+### Key Outcomes
+
+- **Structured Insight**: Aggregation by issuance month revealed cyclical patterns in licensing activities.
+- **SQL-Based Flexibility**: Enabled efficient slicing and grouping of data from Parquet files.
+- **Cross-Validation**: Comparison with open city data sources affirmed result accuracy and consistency.
 
 ---
 
 ### Tools Used
-- **Amazon Athena**: For running SQL queries on curated Parquet data.
-- **AWS DataBrew**: For data transformation and format standardization.
-- **Vancouver City Data Portal**: For analytical validation.
+- **Amazon Athena** – For executing SQL queries on structured data.
+- **AWS DataBrew** – For transformation, formatting, and exporting data for analysis.
+- **Vancouver City Data Portal** – For benchmarking and result verification.
 
 ---
+
+This phase played a crucial role in verifying that the curated datasets not only passed governance checks but were also reliable for real-world analytical use cases.
