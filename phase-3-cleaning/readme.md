@@ -41,7 +41,7 @@ The cleaned data was saved in the **transfer bucket** (`licence-trf-ash`) in two
 | Screenshot | Description |
 |------------|-------------|
 | ![JSON output](images/dataclean-s3-transfer-json-file.png) | Cleaned JSON output file |
-| ![CSV output](images/datacIean-s3-transfer-csv-user.png) | Cleaned CSV file inside `user/` folder |
+| ![CSV output](images/dataclean-s3-transfer-csv-user.png) | Cleaned CSV file inside `user/` folder |
 | ![Parquet output](images/dataclean-s3-transfer-parquet-system.png) | Partitioned Parquet folders based on `Status` |
 
 ---
