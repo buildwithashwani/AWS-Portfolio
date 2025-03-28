@@ -6,7 +6,7 @@ This phase integrates two critical operations: **Data Cataloging** and **Summari
 
 ---
 
-## 🛠️ Tools & Services Used
+## Tools & Services Used
 
 - **Amazon S3**: Storage for cleaned and summarized datasets.
 - **AWS Glue Crawler**: Automated schema detection and catalog registration.
