@@ -73,13 +73,9 @@ We developed a Glue Studio job to create aggregated insights from the cataloged 
   - Appended `Report_Date` and `Report_Date_Time`
 - **Output Paths**:
   - CSV output to:
-    ```
-    s3://licence-trf-ash/business-licences-1997-2012/user/
-    ```
+    `s3://licence-trf-ash/business-licences-1997-2012/user/`
   - Parquet output to:
-    ```
-    s3://licence-trf-ash/business-licences-1997-2012/system/
-    ```
+    `s3://licence-trf-ash/business-licences-1997-2012/system/`
 
 **Workflow Design & Screenshots:**
 - ![Glue Studio Workflow Overview](images/cataloging-glue-table-overview.png)
