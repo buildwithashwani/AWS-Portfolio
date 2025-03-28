@@ -38,9 +38,9 @@ Separate projects were created for each dataset:
 
 These projects allowed full visibility into column types, distinct values, null percentages, and schema structure.
 
-![Project Creation](images/databrew-project-creation-main.png)  
-![Project Interface (CSV)](images/databrew-project-interface-main.png)  
-![Project Interface (JSON)](images/databrew-semi-project-grid-view.png)
+![Project Creation](images/databrew-project-creation.png)  
+![Project Interface (CSV)](images/databrew-project-intefface.png)  
+![Project Interface (JSON)](images/bus-lic-semi-prj-ash.png)
 
 ---
 
@@ -55,7 +55,7 @@ Data profiles were run from within each project to summarize:
 
 This resulted in highly visual summaries to help guide downstream cleaning.
 
-![Data Profile Preview](images/databrew-profile-preview-main.png)
+![Data Profile Preview](images/databrew-profile-preview.png)
 
 ---
 
@@ -63,8 +63,8 @@ This resulted in highly visual summaries to help guide downstream cleaning.
 
 The profiling jobs generated results in both CSV and Parquet formats. Outputs were stored securely in S3 under transfer/curate zones.
 
-![Job Output Location](images/databrew-job-output-main.png)  
-![Job Run Status](images/databrew-job-run-status.png)
+![Job Output Location](images/databrew-job-output.png)  
+![Job Run Status](images/databrew-job-success.png)
 
 ---
 
@@ -93,16 +93,16 @@ This phase provided a clear statistical and structural summary of the dataset, l
 
 ## Screenshot Summary
 
-| Screenshot | Description |
-|------------|-------------|
-| `databrew-datasets-list.png` | Dataset registration screen |
-| `databrew-project-creation-main.png` | Project created for CSV |
-| `databrew-project-interface-main.png` | Interface view of the DataBrew project |
-| `databrew-semi-project-grid-view.png` | Grid view of semi-structured (JSON) project |
-| `databrew-profile-preview-main.png` | Statistical summary of the dataset |
-| `databrew-job-output-main.png` | Output format (CSV and Parquet) |
-| `databrew-job-run-status.png` | Successful profiling job runs |
-| `databrew-recipe-steps-main-ds.png` | Recipe steps to address data quality issues |
+| Screenshot                        | Description                                |
+|----------------------------------|--------------------------------------------|
+| `databrew-datasets-list.png`     | Dataset registration screen                |
+| `databrew-project-creation.png`  | Project created for CSV                    |
+| `databrew-project-intefface.png` | Interface view of the DataBrew project     |
+| `bus-lic-semi-prj-ash.png`       | Grid view of semi-structured (JSON) project|
+| `databrew-profile-preview.png`   | Statistical summary of the dataset         |
+| `databrew-job-output.png`        | Output format (CSV and Parquet)            |
+| `databrew-job-success.png`       | Successful profiling job runs              |
+| `databrew-recipe-steps-main-ds.png` | Recipe steps to address data issues     |
 
 ---
 
