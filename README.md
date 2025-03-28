@@ -10,7 +10,8 @@ This is my **first cloud project** and my **first GitHub portfolio**, and it sho
 
 ## Project Objective
 
-To analyze business licensing data for the City of Vancouver (1997–2012) using AWS cloud services and uncover patterns in license issuance and fee collection. The analysis includes multiple phases: data ingestion, profiling, cleaning, cataloging, summarization, and visualization.
+To analyze business licensing data for the City of Vancouver (1997–2012) using AWS cloud services and uncover patterns in license issuance and fee collection. The analysis includes multiple phases: data ingestion, profiling, cleaning, cataloging & summarization, analysis, and governance & monitoring.
+
 
 ---
 
@@ -135,7 +136,7 @@ This architecture showcases how the dataset moves from ingestion to summarizatio
 
 ## Project Workflow
 
-The project is organized into **five key phases**, each stored in its own folder with screenshots and explanations.
+The project is organized into **six key phases**, each stored in its own folder with screenshots and explanations.
 
 | Phase | Folder | Description |
 |-------|--------|-------------|
