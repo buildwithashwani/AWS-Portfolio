@@ -1,6 +1,6 @@
 # Phase 4: Data Cataloging & Summarization
 
-## 📌 Objective
+## Objective
 
 This phase integrates two critical operations: **Data Cataloging** and **Summarization**. The objective was to first catalog the cleaned and transformed dataset stored in Parquet format using AWS Glue Crawlers and the AWS Glue Data Catalog. Once registered, we leveraged AWS Glue Studio to summarize key metrics such as license issuance counts and total fees paid. This phase enabled downstream query, reporting, and analytics capabilities.
 
@@ -16,7 +16,7 @@ This phase integrates two critical operations: **Data Cataloging** and **Summari
 
 ---
 
-## 🧭 Step-by-Step Process
+## Step-by-Step Process
 
 ### 1. Creating the Glue Database
 
@@ -89,7 +89,7 @@ We developed a Glue Studio job to create aggregated insights from the cataloged 
 
 ---
 
-## 📝 Outcomes
+## Outcomes
 
 - **Glue Crawler** automated schema extraction from the curated dataset.
 - **Data Catalog** established for `busi-lice-97-12_metrics`, enabling quick discovery and analysis.
@@ -98,13 +98,9 @@ We developed a Glue Studio job to create aggregated insights from the cataloged 
 
 ---
 
-## ✅ Value Addition
+## Value Addition
 
 By combining cataloging with summarization, we laid the foundation for scalable analytics. The Parquet output, combined with catalog metadata, enables low-cost querying through AWS Athena or other tools. These steps also ensure that the dataset is compliant with industry-standard data lake best practices.
 
----
 
-## 📁 Folder Reference
-
-This documentation corresponds to the folder:
 
