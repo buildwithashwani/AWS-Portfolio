@@ -32,7 +32,7 @@ A cleaning job named `busi-lice-97-12-cln-ash` was created using a custom recipe
 
 ---
 
-### 🗂Cleaned Data Storage in S3 (Transfer Bucket)
+### Cleaned Data Storage in S3 (Transfer Bucket)
 
 The cleaned data was saved in the **transfer bucket** (`licence-trf-ash`) in two logical folders:
 - `/user/` for CSV
